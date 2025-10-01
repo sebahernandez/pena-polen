@@ -1,13 +1,32 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es" class="h-full">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>PenaPolen - Información de Polen</title>
+		<script is:inline>
+			// Prevenir flash de contenido sin estilo (FOUC) para dark mode
+			(function() {
+				const savedTheme = localStorage.getItem('color-theme');
+				
+				if (savedTheme === 'light') {
+					document.documentElement.classList.remove('dark');
+					document.documentElement.classList.add('light');
+				} else {
+					// Por defecto usar dark mode
+					document.documentElement.classList.add('dark');
+					document.documentElement.classList.remove('light');
+				}
+			})();
+		</script>
 	</head>
-	<body>
+	<body class="h-full bg-gray-50 light:bg-white dark:bg-gray-950 text-gray-900 light:text-black dark:text-gray-100 transition-colors duration-200">
 		<slot />
 	</body>
 </html>

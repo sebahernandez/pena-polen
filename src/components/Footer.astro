@@ -1,0 +1,81 @@
+
+
+<footer class="my-10 bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-200">
+  <!-- Main Footer Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Brand Section -->
+      <div class="col-span-1 lg:col-span-2">
+        <h3 class="text-2xl font-bold text-white mb-4">AlergiaFlor</h3>
+        <p class="text-gray-300 mb-6 leading-relaxed max-w-md">
+          Sistema de información sobre niveles de polen en Peñaflor. 
+          Consulta datos históricos y proyecciones para cuidar tu salud respiratoria.
+        </p>
+      </div>
+
+      <!-- Navigation Section -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-white">Navegación</h4>
+        <ul class="space-y-3 text-gray-300">
+          <li>
+            <a href="/" class="hover:text-blue-400 transition-colors duration-200">
+              Inicio
+            </a>
+          </li>
+          <li>
+            <a href="/historial" class="hover:text-blue-400 transition-colors duration-200">
+              Historial
+            </a>
+          </li>
+          <li>
+            <a href="/graficos" class="hover:text-blue-400 transition-colors duration-200">
+              Gráficos
+            </a>
+          </li>
+          <li>
+            <a href="/contacto" class="hover:text-blue-400 transition-colors duration-200">
+              Contacto
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Information Section -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-white">Información</h4>
+        <ul class="space-y-3 text-gray-300">
+          <li class="flex items-start">
+            <span class="text-red-400 mr-2">•</span>
+            <span class="text-sm">Niveles Altos: Extremar precauciones</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-yellow-400 mr-2">•</span>
+            <span class="text-sm">Niveles Medios: Tomar medidas preventivas</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-green-400 mr-2">•</span>
+            <span class="text-sm">Niveles Bajos: Condiciones favorables</span>
+          </li>
+          <li class="text-xs text-gray-400 mt-4">
+            * Consulte siempre con su médico ante síntomas persistentes
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-800 pt-6 text-center text-sm text-gray-500">
+      &copy; {new Date().getFullYear()} AlergiaFlor. Todos los derechos reservados.
+    </div>
+</footer>
+
+<style>
+  /* Smooth hover effects */
+  footer a {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  footer a:hover {
+    transform: translateX(2px);
+  }
+</style>

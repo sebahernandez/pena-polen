@@ -1,107 +1,128 @@
-<nav class="relative bg-gray-100 light:bg-white dark:bg-gray-950 transition-colors duration-200">
-  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-    <div class="relative flex h-16 items-center justify-between">
-      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-        <!-- Mobile menu button-->
-        <button 
-          type="button" 
-          id="mobile-menu-button"
-          class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-200/10 light:hover:bg-gray-200/20 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500"
-          aria-controls="mobile-menu" 
-          aria-expanded="false"
-        >
-          <span class="absolute -inset-0.5"></span>
-          <span class="sr-only">Open main menu</span>
-          <!-- Hamburger icon -->
-          <svg id="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <!-- Close icon -->
-          <svg id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 hidden">
-            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-        <div class="flex shrink-0 items-center">
-          <span class="text-gray-900 light:text-black dark:text-gray-100 text-xl font-bold">PenaPolen</span>
+<!-- Navbar Container con padding para efecto flotante -->
+<div class="w-full px-4 sm:px-6 lg:px-8 py-4">
+  <nav class="max-w-7xl mx-auto bg-white/80 light:bg-white/90 dark:bg-gray-900 backdrop-blur-md rounded-2xl shadow-lg shadow-gray-200/50 dark:shadow-gray-900/50 border border-gray-200/50 light:border-gray-300/50 dark:border-gray-700/50 transition-all duration-200">
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button 
+            type="button" 
+            id="mobile-menu-button"
+            class="relative inline-flex items-center justify-center rounded-xl p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
+            aria-controls="mobile-menu" 
+            aria-expanded="false"
+          >
+            <span class="sr-only">Abrir menú principal</span>
+            <!-- Hamburger icon -->
+            <svg id="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6">
+              <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <!-- Close icon -->
+            <svg id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6 hidden">
+              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
         </div>
-        <div class="hidden sm:ml-6 sm:block">
-          <div class="flex space-x-4">
-            <a href="/" aria-current="page" class="rounded-md bg-gray-200 light:bg-gray-300 dark:bg-gray-800 px-3 py-2 text-sm font-medium text-gray-900 light:text-black dark:text-white">Inicio</a>
-            <a href="/historial" class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-200 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white">Historial</a>
-            <a href="/graficos" class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-200 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white">Gráficos</a>
-            <a href="/contacto" class="rounded-md px-3 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-200 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white">Contacto</a>
+        
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex shrink-0 items-center">
+            <a href="/" class="flex items-center space-x-2 group">
+              <div class="bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-500 rounded-xl p-1.5 shadow-md group-hover:shadow-lg transition-all duration-200">
+                <svg class="size-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </div>
+              <span class="text-gray-900 light:text-black dark:text-gray-100 text-xl font-bold tracking-tight">PenaPolen</span>
+            </a>
+          </div>
+          
+          <div class="hidden sm:ml-8 sm:flex sm:items-center">
+            <div class="flex space-x-1 bg-gray-100/50 light:bg-gray-200/50 dark:bg-gray-800/50 rounded-xl p-1">
+              <a href="/" aria-current="page" class="rounded-lg bg-white light:bg-white dark:bg-gray-700 px-4 py-2 text-sm font-semibold text-gray-900 light:text-black dark:text-white shadow-sm transition-all duration-200">Inicio</a>
+              <a href="/historial" class="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Historial</a>
+              <a href="/graficos" class="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Gráficos</a>
+              <a href="/contacto" class="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Contacto</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <!-- Dark Mode Toggle -->
-        <button 
-          type="button" 
-          id="theme-toggle"
-          class="relative rounded-full p-1 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
-        >
-          <span class="absolute -inset-1.5"></span>
-          <span class="sr-only">Alternar modo oscuro</span>
-          <!-- Sun Icon (visible en dark mode) -->
-          <svg id="theme-toggle-light-icon" class="size-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
-          </svg>
-          <!-- Moon Icon (visible en light mode) -->
-          <svg id="theme-toggle-dark-icon" class="size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-          </svg>
-        </button>
         
-        <button type="button" class="relative rounded-full p-1 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
-          <span class="absolute -inset-1.5"></span>
-          <span class="sr-only">Ver notificaciones</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-            <path d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
+        <div class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <!-- Dark Mode Toggle -->
+          <button 
+            type="button" 
+            id="theme-toggle"
+            class="relative rounded-xl p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
+            title="Cambiar tema"
+          >
+            <span class="sr-only">Alternar modo oscuro</span>
+            <!-- Sun Icon (visible en dark mode) -->
+            <svg id="theme-toggle-light-icon" class="size-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+            <!-- Moon Icon (visible en light mode) -->
+            <svg id="theme-toggle-dark-icon" class="size-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+          </button>
+          
+          <button type="button" class="relative rounded-xl p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200">
+            <span class="sr-only">Ver notificaciones</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-5">
+              <path d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <!-- Badge para notificaciones -->
+            <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden sm:hidden bg-gray-100 light:bg-white dark:bg-gray-950">
-    <div class="space-y-1 px-2 pt-2 pb-3">
-      <a href="/" aria-current="page" class="block rounded-md bg-gray-200 light:bg-gray-300 dark:bg-gray-800 px-3 py-2 text-base font-medium text-gray-900 light:text-black dark:text-white">Inicio</a>
-      <a href="/historial" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-200 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white">Historial</a>
-      <a href="/graficos" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-200 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white">Gráficos</a>
-      <a href="/contacto" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-200 hover:bg-gray-200/20 light:hover:bg-gray-200/30 dark:hover:bg-white/5 hover:text-gray-900 light:hover:text-black dark:hover:text-white">Contacto</a>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200/50 dark:border-gray-700/50">
+      <div class="space-y-1 px-4 pt-3 pb-4">
+        <a href="/" aria-current="page" class="block rounded-xl bg-gray-100/80 light:bg-gray-200/80 dark:bg-gray-800/80 px-4 py-3 text-base font-semibold text-gray-900 light:text-black dark:text-white shadow-sm transition-all duration-200">Inicio</a>
+        <a href="/historial" class="block rounded-xl px-4 py-3 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 light:hover:bg-gray-200/50 dark:hover:bg-gray-800/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Historial</a>
+        <a href="/graficos" class="block rounded-xl px-4 py-3 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 light:hover:bg-gray-200/50 dark:hover:bg-gray-800/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Gráficos</a>
+        <a href="/contacto" class="block rounded-xl px-4 py-3 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 light:hover:bg-gray-200/50 dark:hover:bg-gray-800/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Contacto</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile menu toggle
   const menuButton = document.getElementById('mobile-menu-button');
   
-  if (menuButton) {
-    menuButton.addEventListener('click', () => {
-      const mobileMenu = document.getElementById('mobile-menu');
-      const hamburgerIcon = document.getElementById('hamburger-icon');
-      const closeIcon = document.getElementById('close-icon');
-      
-      if (!mobileMenu || !hamburgerIcon || !closeIcon) return;
-      
-      if (mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.remove('hidden');
-        hamburgerIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
-        menuButton.setAttribute('aria-expanded', 'true');
-      } else {
-        mobileMenu.classList.add('hidden');
-        hamburgerIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-        menuButton.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
+  if (!menuButton) return;
+  
+  menuButton.addEventListener('click', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    
+    if (!mobileMenu || !hamburgerIcon || !closeIcon) return;
+    
+    const isMenuHidden = mobileMenu.classList.contains('hidden');
+    
+    // Configurar estado cuando el menú está oculto (mostrar menú)
+    if (isMenuHidden) {
+      mobileMenu.classList.remove('hidden');
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      menuButton.setAttribute('aria-expanded', 'true');
+      return;
+    }
+    
+    // Configurar estado cuando el menú está visible (ocultar menú)
+    mobileMenu.classList.add('hidden');
+    hamburgerIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+    menuButton.setAttribute('aria-expanded', 'false');
+  });
 
   // Dark mode toggle
   const themeToggleBtn = document.getElementById('theme-toggle');
@@ -111,57 +132,47 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateIcons() {
     const isDark = document.documentElement.classList.contains('dark');
     console.log('Updating icons, isDark:', isDark);
+
+    if (!themeToggleLightIcon || !themeToggleDarkIcon) return;
     
-    if (themeToggleLightIcon && themeToggleDarkIcon) {
-      if (isDark) {
-        themeToggleLightIcon.classList.remove('hidden');
-        themeToggleDarkIcon.classList.add('hidden');
-      } else {
-        themeToggleLightIcon.classList.add('hidden');
-        themeToggleDarkIcon.classList.remove('hidden');
-      }
-    }
+    themeToggleLightIcon.classList.toggle('hidden', !isDark);
+    themeToggleDarkIcon.classList.toggle('hidden', isDark);
   }
 
   // Inicializar con dark mode por defecto
   const savedTheme = localStorage.getItem('color-theme');
-  if (savedTheme === 'light') {
-    document.documentElement.classList.remove('dark');
-    document.documentElement.classList.add('light');
-  } else {
-    document.documentElement.classList.add('dark');
-    document.documentElement.classList.remove('light');
-  }
-  
+  const isLight = savedTheme === 'light';
+
+  document.documentElement.classList.toggle('light', isLight);
+  document.documentElement.classList.toggle('dark', !isLight);
+    
   // Actualizar iconos al cargar
   updateIcons();
 
   // Dark mode toggle event
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      console.log('Toggle clicked, current classes:', document.documentElement.className);
-      
-      const isDark = document.documentElement.classList.contains('dark');
-      
-      if (isDark) {
-        // Cambiar a light mode
-        document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-      } else {
-        // Cambiar a dark mode
-        document.documentElement.classList.remove('light');
-        document.documentElement.classList.add('dark');
-      }
-      
-      console.log('After toggle, classes:', document.documentElement.className);
-      
+  if (!themeToggleBtn) return;
+  
+  themeToggleBtn.addEventListener('click', () => {
+    console.log('Toggle clicked, current classes:', document.documentElement.className);
+    
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    // Cambiar a light mode si está en dark
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      localStorage.setItem('color-theme', 'light');
+      console.log('Saved theme: light');
       updateIcons();
-      
-      // Guardar preferencia
-      const newIsDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('color-theme', newIsDark ? 'dark' : 'light');
-      console.log('Saved theme:', newIsDark ? 'dark' : 'light');
-    });
-  }
+      return;
+    }
+    
+    // Cambiar a dark mode si está en light
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('color-theme', 'dark');
+    console.log('Saved theme: dark');
+    updateIcons();
+  });
 });
 </script>

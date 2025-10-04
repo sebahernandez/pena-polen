@@ -6,7 +6,6 @@ import type {
   PollenRecordInsert, 
   PollenLevelInsert, 
   PollenForecastInsert,
-  PollenRecordWithRelations 
 } from '../types/supabase';
 
 // Configuraci�n de Supabase
@@ -91,7 +90,7 @@ export class SupabasePollenService {
       }
 
       const pollenRecordId = pollenRecord.id;
-      console.log(` Registro de polen guardado con ID: ${pollenRecordId}`);
+      console.log(`Registro de polen guardado con ID: ${pollenRecordId}`);
 
       // Guardar los niveles de polen
       if (pollenData.levels.length > 0) {
@@ -123,9 +122,9 @@ export class SupabasePollenService {
           } as PollenForecastInsert);
 
         if (forecastError) {
-          console.error('L Error al guardar pron�stico:', forecastError);
+          console.error('L Error al guardar pronóstico:', forecastError);
         } else {
-          console.log(' Pron�stico guardado');
+          console.log('Pronóstico guardado');
         }
       }
 

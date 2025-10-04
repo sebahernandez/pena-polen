@@ -332,10 +332,39 @@ export default function TableHistory() {
                 <YAxis />
                 <Tooltip 
                   labelFormatter={(label) => `${label}`}
-                  formatter={(value: number, name: string) => [
-                    `${value} g/m³`, 
-                    name
-                  ]}
+                  formatter={(value: number, name: string) => {
+                    // Solo mostrar el valor si es mayor que 0 (evitar mostrar valores no correspondientes)
+                    if (value > 0) {
+                      return [`${value} g/m³`, name];
+                    }
+                    return null;
+                  }}
+                  content={({ active, payload, label }) => {
+                    if (active && payload && payload.length) {
+                      // Filtrar solo los valores que realmente pertenecen a la barra activa
+                      const activeData = payload.filter(entry => entry.value > 0);
+                      
+                      if (activeData.length === 0) return null;
+                      
+                      return (
+                        <div className="bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
+                          <p className="font-medium text-gray-900 dark:text-white mb-2">{label}</p>
+                          {activeData.map((entry, index) => (
+                            <div key={index} className="flex items-center">
+                              <div 
+                                className="w-3 h-3 rounded mr-2" 
+                                style={{ backgroundColor: entry.color }}
+                              />
+                              <span className="text-sm text-gray-700 dark:text-gray-300">
+                                {entry.name}: <span className="font-semibold">{entry.value} g/m³</span>
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
                 />
                 <Bar dataKey="Total Árboles" fill="#ef4444" name="Total Árboles" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="Plátano Oriental" fill="#dc2626" name="Plátano Oriental" radius={[4, 4, 0, 0]} />

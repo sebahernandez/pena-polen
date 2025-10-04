@@ -261,38 +261,36 @@ export async function scrapePollenData(): Promise<PollenData | null> {
 // Function to display pollen data in console
 export function displayPollenData(data: PollenData | null): void {
   if (!data) {
-    console.log('L No se pudo obtener informaci�n de polenes');
+    console.log('L No se pudo obtener información de polenes');
     return;
   }
   
-  console.log('\n<8 INFORMACI�N DE POLENES <8');
+  console.log('\n Polenes en Santiago de Chile');
   console.log('================================');
-  console.log(`=� Ciudad: ${data.city}`);
-  console.log(`=� Fecha: ${data.date}`);
+  console.log(`Ciudad: ${data.city}`);
+  console.log(`Fecha: ${data.date}`);
   
   if (data.levels.length > 0) {
-    console.log('\n=� Niveles de Polen:');
+    console.log('\n= Niveles de Polen:');
     data.levels.forEach((level, index) => {
       console.log(`  ${index + 1}. ${level.type}: ${level.level}`);
       if (level.description) {
-        console.log(`     =� ${level.description}`);
+        console.log(`${level.description}`);
       }
     });
   } else {
-    console.log('\n�  No se encontraron niveles espec�ficos de polen');
+    console.log('\n  No se encontraron niveles especificos de polen');
   }
   
   if (data.forecast) {
-    console.log(`\n=. Pron�stico: ${data.forecast}`);
+    console.log(`\n= Pronóstico: ${data.forecast}`);
   }
-  
-  console.log('================================\n');
 }
 
 // Main function to run the scraping
 export async function runPollenScraping(): Promise<void> {
-  console.log('=� Iniciando scraping de polenes...');
-  
+  console.log('= Iniciando scraping de polenes...');
+
   const pollenData = await scrapePollenData();
   displayPollenData(pollenData);
   

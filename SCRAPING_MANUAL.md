@@ -7,18 +7,40 @@ Este documento explica cómo ejecutar manualmente el scraping de datos de polen 
 ## Estado Actual del Sistema
 
 - ❌ **No hay automatización configurada** - El scraping debe ejecutarse manualmente
-- 🔄 **Scraping funcional** - Los datos se extraen correctamente de polenes.cl
-- ⚠️ **Supabase no configurado** - Los datos no se guardan en la base de datos
+- ✅ **Scraping funcional** - Los datos se extraen correctamente de polenes.cl
+- ✅ **Supabase configurado** - Los datos se guardan en la base de datos
+- 🔔 **Sistema de notificaciones activo** - Notifica en el navbar cuando hay nuevos datos
 
 ## Comandos para Ejecutar Scraping
 
-### 1. Scraping completo con guardado en Supabase
+### 1. Scraping completo con guardado en Supabase (Recomendado)
 ```bash
-npx tsx src/lib/polenes.ts
+npm run scrape:save
 ```
 
+Este comando ejecuta el scraping, guarda en la base de datos y **genera automáticamente una notificación** en el navbar de la aplicación.
+
 ### 2. Solo scraping (sin guardar)
-Ejecutar la función `runPollenScraping()` programáticamente.
+```bash
+npm run scrape
+```
+
+### 3. Vía API (POST request)
+```bash
+curl -X POST http://localhost:4321/api/scrape
+```
+
+O desde JavaScript:
+```javascript
+fetch('/api/scrape', { method: 'POST' })
+  .then(r => r.json())
+  .then(console.log);
+```
+
+### 4. Comando directo (legacy)
+```bash
+DOTENV_CONFIG_PATH=.env.local npx tsx -r dotenv/config src/lib/polenes.ts
+```
 
 ## Datos Obtenidos en la Última Ejecución
 
@@ -114,6 +136,19 @@ Una vez guardados los datos, consultar a través de:
 - `GET /api/penaflor?action=latest` - Último registro
 - `GET /api/penaflor?action=current` - Registro actual
 - `GET /api/penaflor?action=status` - Estado del sistema
+- `POST /api/scrape` - Ejecutar scraping vía API
+
+## Sistema de Notificaciones
+
+Cuando se ejecuta el scraping con `npm run scrape:save` o `POST /api/scrape`:
+
+1. ✅ Los datos se guardan en Supabase
+2. 🔍 El frontend verifica automáticamente cada 30 segundos si hay actualizaciones
+3. 🔔 Si detecta nuevos datos, crea una notificación en el navbar
+4. 📍 Aparece un badge animado en el ícono de campana
+5. 📋 El dropdown muestra los niveles de polen actualizados
+
+**Detalles completos:** Ver `NOTIFICATIONS_SYSTEM.md`
 
 ## Recomendaciones
 

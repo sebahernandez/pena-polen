@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "scrape": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config src/lib/polenes.ts",
+    "scrape:save": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config -e \"import('./src/lib/polenes.ts').then(m => m.scrapeAndSavePollenData())\""
   },
   "dependencies": {
     "@astrojs/react": "^4.4.0",

@@ -8,12 +8,12 @@ import type {
   PollenForecastInsert,
 } from '../types/supabase';
 
-// Configuraci�n de Supabase
+// Configuracion de Supabase
 const supabaseUrl = process.env.PUBLIC_SUPABASE_URL || import.meta.env?.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env?.PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('� Variables de entorno de Supabase no configuradas. Aseg�rate de definir PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY');
+  console.warn('Variables de entorno de Supabase no configuradas. Asegúrate de definir PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY');
 }
 
 // Crear cliente de Supabase solo si las variables están configuradas
@@ -26,12 +26,12 @@ export const supabase: SupabaseClient | null = (supabaseUrl && supabaseAnonKey) 
 // Function to clean test data
 export async function cleanTestData(): Promise<boolean> {
   if (!supabase) {
-    console.error('❌ Cliente de Supabase no disponible');
+    console.error('Cliente de Supabase no disponible');
     return false;
   }
 
   try {
-    console.log('🧹 Limpiando datos de prueba...');
+    console.log('Limpiando datos de prueba...');
     
     // Delete test records by checking the date field for "Verificación"
     const { error } = await supabase
@@ -40,14 +40,14 @@ export async function cleanTestData(): Promise<boolean> {
       .ilike('date', '%Verificación%');
 
     if (error) {
-      console.error('❌ Error al limpiar datos de prueba:', error);
+      console.error('Error al limpiar datos de prueba:', error);
       return false;
     }
 
-    console.log('✅ Datos de prueba eliminados correctamente');
+    console.log('Datos de prueba eliminados correctamente');
     return true;
   } catch (error) {
-    console.error('❌ Error inesperado al limpiar datos:', error);
+    console.error('Error inesperado al limpiar datos:', error);
     return false;
   }
 }
@@ -60,18 +60,18 @@ export class SupabasePollenService {
    */
   static async savePollenData(pollenData: PollenData): Promise<number | null> {
     if (!supabase) {
-      console.error('❌ Cliente de Supabase no disponible');
+      console.error('Cliente de Supabase no disponible');
       return null;
     }
 
     // Validate that we're only saving Santiago data
     if (pollenData.city !== 'Santiago') {
-      console.warn(`⚠️ Solo se permite guardar datos de Santiago. Se recibió: ${pollenData.city}`);
+      console.warn(`Solo se permite guardar datos de Santiago. Se recibió: ${pollenData.city}`);
       return null;
     }
     
     try {
-      console.log('=� Guardando datos de polen en Supabase...');
+      console.log('Guardando datos de polen en Supabase...');
       
       // Insertar el registro principal de polen
       const { data: pollenRecord, error: pollenError } = await supabase!
@@ -85,7 +85,7 @@ export class SupabasePollenService {
         .single();
 
       if (pollenError) {
-        console.error('L Error al guardar registro de polen:', pollenError);
+        console.error('Error al guardar registro de polen:', pollenError);
         return null;
       }
 
@@ -106,13 +106,13 @@ export class SupabasePollenService {
           .insert(pollenLevels as PollenLevelInsert[]);
 
         if (levelsError) {
-          console.error('L Error al guardar niveles de polen:', levelsError);
+          console.error('Error al guardar niveles de polen:', levelsError);
         } else {
-          console.log(` ${pollenLevels.length} niveles de polen guardados`);
+          console.log(`${pollenLevels.length} niveles de polen guardados`);
         }
       }
 
-      // Guardar el pron�stico si existe
+      // Guardar el pronóstico si existe
       if (pollenData.forecast) {
         const { error: forecastError } = await supabase!
           .from('pollen_forecasts')
@@ -122,7 +122,7 @@ export class SupabasePollenService {
           } as PollenForecastInsert);
 
         if (forecastError) {
-          console.error('L Error al guardar pronóstico:', forecastError);
+          console.error('Error al guardar pronóstico:', forecastError);
         } else {
           console.log('Pronóstico guardado');
         }
@@ -131,17 +131,17 @@ export class SupabasePollenService {
       return pollenRecordId;
 
     } catch (error) {
-      console.error('L Error general al guardar en Supabase:', error);
+      console.error('Error general al guardar en Supabase:', error);
       return null;
     }
   }
 
   /**
-   * Obtiene el �ltimo registro de polen
+   * Obtiene el último registro de polen
    */
   static async getLatestPollenData(): Promise<PollenData | null> {
     if (!supabase) {
-      console.error('❌ Cliente de Supabase no disponible');
+      console.error('Cliente de Supabase no disponible');
       return null;
     }
     
@@ -158,7 +158,7 @@ export class SupabasePollenService {
         .single();
 
       if (pollenError) {
-        console.error('L Error al obtener datos de polen:', pollenError);
+        console.error('Error al obtener datos de polen:', pollenError);
         return null;
       }
 
@@ -177,7 +177,7 @@ export class SupabasePollenService {
       return pollenData;
 
     } catch (error) {
-      console.error('L Error al obtener datos de polen:', error);
+      console.error('Error al obtener datos de polen:', error);
       return null;
     }
   }
@@ -187,7 +187,7 @@ export class SupabasePollenService {
    */
   static async getPollenDataByCity(city: string, limit: number = 10): Promise<PollenData[]> {
     if (!supabase) {
-      console.error('❌ Cliente de Supabase no disponible');
+      console.error('Cliente de Supabase no disponible');
       return [];
     }
     
@@ -204,7 +204,7 @@ export class SupabasePollenService {
         .limit(limit);
 
       if (error) {
-        console.error('L Error al obtener datos por ciudad:', error);
+        console.error('Error al obtener datos por ciudad:', error);
         return [];
       }
 
@@ -220,7 +220,7 @@ export class SupabasePollenService {
       }));
 
     } catch (error) {
-      console.error('L Error al obtener datos por ciudad:', error);
+      console.error('Error al obtener datos por ciudad:', error);
       return [];
     }
   }
@@ -230,7 +230,7 @@ export class SupabasePollenService {
    */
   static async getPollenDataByDateRange(startDate: string, endDate: string): Promise<PollenData[]> {
     if (!supabase) {
-      console.error('❌ Cliente de Supabase no disponible');
+      console.error('Cliente de Supabase no disponible');
       return [];
     }
     
@@ -247,7 +247,7 @@ export class SupabasePollenService {
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('L Error al obtener datos por rango de fechas:', error);
+        console.error('Error al obtener datos por rango de fechas:', error);
         return [];
       }
 
@@ -263,7 +263,7 @@ export class SupabasePollenService {
       }));
 
     } catch (error) {
-      console.error('L Error al obtener datos por rango de fechas:', error);
+      console.error('Error al obtener datos por rango de fechas:', error);
       return [];
     }
   }
@@ -273,7 +273,7 @@ export class SupabasePollenService {
    */
   static async cleanOldRecords(daysToKeep: number = 30): Promise<void> {
     if (!supabase) {
-      console.error('❌ Cliente de Supabase no disponible');
+      console.error('Cliente de Supabase no disponible');
       return;
     }
     
@@ -287,9 +287,9 @@ export class SupabasePollenService {
         .lt('created_at', cutoffDate.toISOString());
 
       if (error) {
-        console.error('L Error al limpiar registros antiguos:', error);
+        console.error('Error al limpiar registros antiguos:', error);
       } else {
-        console.log(` Registros anteriores a ${cutoffDate.toLocaleDateString()} eliminados`);
+        console.log(`Registros anteriores a ${cutoffDate.toLocaleDateString()} eliminados`);
       }
 
     } catch (error) {
@@ -298,12 +298,12 @@ export class SupabasePollenService {
   }
 
   /**
-   * Verifica la conexi�n con Supabase
+   * Verifica la conexión con Supabase
    */
   static async testConnection(): Promise<boolean> {
     try {
       if (!supabase) {
-        console.warn('⚠️ Cliente de Supabase no está configurado');
+        console.warn('Cliente de Supabase no está configurado');
         return false;
       }
 
@@ -312,15 +312,15 @@ export class SupabasePollenService {
         .select('count', { count: 'exact', head: true });
 
       if (error) {
-        console.error('L Error de conexi�n con Supabase:', error);
+        console.error('Error de conexión con Supabase:', error);
         return false;
       }
 
-      console.log(' Conexi�n con Supabase exitosa');
+      console.log('Conexión con Supabase exitosa');
       return true;
 
     } catch (error) {
-      console.error('L Error de conexi�n:', error);
+      console.error('L Error de conexión:', error);
       return false;
     }
   }
@@ -332,18 +332,18 @@ export class SupabasePollenService {
 export async function saveSantiagoPollenData(pollenData: PollenData): Promise<number | null> {
   // Check if Supabase is configured
   if (!supabase) {
-    console.warn('⚠️ Supabase no está configurado - no se pueden guardar datos');
+    console.warn('Supabase no está configurado - no se pueden guardar datos');
     return null;
   }
 
   // Validate that we're only saving Santiago data
   if (pollenData.city !== 'Santiago') {
-    console.warn(`⚠️ Solo se permite guardar datos de Santiago. Se recibió: ${pollenData.city}`);
+    console.warn(`Solo se permite guardar datos de Santiago. Se recibió: ${pollenData.city}`);
     return null;
   }
   
   try {
-    console.log('💾 Guardando datos de polen de Santiago en Supabase...');
+    console.log('Guardando datos de polen de Santiago en Supabase...');
     
     // Check if we already have data for this date to avoid duplicates
     const { data: existingRecord } = await supabase
@@ -354,7 +354,7 @@ export async function saveSantiagoPollenData(pollenData: PollenData): Promise<nu
       .single();
     
     if (existingRecord) {
-      console.log(`ℹ️ Ya existe un registro para Santiago en la fecha: ${pollenData.date}`);
+      console.log(`Ya existe un registro para Santiago en la fecha: ${pollenData.date}`);
       return existingRecord.id;
     }
     
@@ -370,12 +370,12 @@ export async function saveSantiagoPollenData(pollenData: PollenData): Promise<nu
       .single();
 
     if (pollenError) {
-      console.error('❌ Error al guardar registro de polen de Santiago:', pollenError);
+      console.error('Error al guardar registro de polen de Santiago:', pollenError);
       return null;
     }
 
     const pollenRecordId = pollenRecord.id;
-    console.log(`✅ Registro de polen de Santiago guardado con ID: ${pollenRecordId}`);
+    console.log(`Registro de polen de Santiago guardado con ID: ${pollenRecordId}`);
 
     // Save Santiago pollen levels
     if (pollenData.levels.length > 0) {
@@ -391,9 +391,9 @@ export async function saveSantiagoPollenData(pollenData: PollenData): Promise<nu
         .insert(pollenLevels as PollenLevelInsert[]);
 
       if (levelsError) {
-        console.error('❌ Error al guardar niveles de polen de Santiago:', levelsError);
+        console.error('Error al guardar niveles de polen de Santiago:', levelsError);
       } else {
-        console.log(`✅ ${pollenLevels.length} niveles de polen de Santiago guardados`);
+        console.log(`${pollenLevels.length} niveles de polen de Santiago guardados`);
       }
     }
 
@@ -407,16 +407,16 @@ export async function saveSantiagoPollenData(pollenData: PollenData): Promise<nu
         });
 
       if (forecastError) {
-        console.error('❌ Error al guardar pronóstico de Santiago:', forecastError);
+        console.error('Error al guardar pronóstico de Santiago:', forecastError);
       } else {
-        console.log('✅ Pronóstico de Santiago guardado');
+        console.log('Pronóstico de Santiago guardado');
       }
     }
 
     return pollenRecordId;
 
   } catch (error) {
-    console.error('❌ Error general al guardar datos de Santiago en Supabase:', error);
+    console.error('Error general al guardar datos de Santiago en Supabase:', error);
     return null;
   }
 }

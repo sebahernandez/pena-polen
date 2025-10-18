@@ -32,7 +32,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
-              <span class="text-gray-900 light:text-black dark:text-gray-100 text-xl font-bold tracking-tight">PenaPolen</span>
+              <span class="text-gray-900 light:text-black dark:text-gray-100 text-xl font-bold tracking-tight">PeñaPolen</span>
             </a>
           </div>
           
@@ -130,6 +130,22 @@
 </div>
 
 <script>
+// Definir tipos para las notificaciones
+interface PollenLevel {
+  type: string;
+  level: string;
+}
+
+interface Notification {
+  id: number;
+  recordId: string;
+  title: string;
+  message: string;
+  timestamp: number;
+  read: boolean;
+  levels: PollenLevel[];
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile menu toggle
   const menuButton = document.getElementById('mobile-menu-button');
@@ -220,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const markAllReadBtn = document.getElementById('mark-all-read');
 
   // Función para obtener notificaciones del localStorage
-  function getNotifications() {
+  function getNotifications(): Notification[] {
     try {
       const stored = localStorage.getItem('pollen-notifications');
       return stored ? JSON.parse(stored) : [];
@@ -231,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Función para guardar notificaciones
-  function saveNotifications(notifications) {
+  function saveNotifications(notifications: Notification[]) {
     try {
       localStorage.setItem('pollen-notifications', JSON.stringify(notifications));
     } catch (e) {
@@ -240,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Función para formatear fecha relativa
-  function getRelativeTime(timestamp) {
+  function getRelativeTime(timestamp: number) {
     const now = Date.now();
     const diff = now - timestamp;
     const minutes = Math.floor(diff / 60000);
@@ -257,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Función para renderizar notificaciones
   function renderNotifications() {
     const notifications = getNotifications();
-    const unreadCount = notifications.filter((n) => !n.read).length;
+    const unreadCount = notifications.filter((n: Notification) => !n.read).length;
 
     // Mostrar/ocultar badge
     if (unreadCount > 0) {

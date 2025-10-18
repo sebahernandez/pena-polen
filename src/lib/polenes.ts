@@ -43,7 +43,7 @@ export async function scrapePollenData(): Promise<PollenData | null> {
     
     const content = await page.content();
     // Load content with UTF-8 encoding specified
-    const $ = cheerio.load(content, { decodeEntities: true });
+    const $ = cheerio.load(content);
     
     // Extract pollen data
     const pollenData: PollenData = {
@@ -59,7 +59,7 @@ export async function scrapePollenData(): Promise<PollenData | null> {
     // Validate we're getting Santiago data
     const fullContent = $('body').text();
     if (!fullContent.includes('Santiago')) {
-      console.warn('⚠️ No se detectó información específica de Santiago en la página');
+      console.warn('No se detectó información específica de Santiago en la página');
     }
     
     // Extract date from period information
@@ -78,11 +78,11 @@ export async function scrapePollenData(): Promise<PollenData | null> {
     };
 
     // More comprehensive extraction of concentration values
-    console.log('🔍 Searching for concentration data in content...');
+    console.log('Searching for concentration data in content...');
     
     // Look for all numbers followed by g/m3 or g/m³
     const concentrationMatches = fullContent.match(/(\d+)\s*g\/m[3³]/gi);
-    console.log('🔍 Found concentration matches:', concentrationMatches);
+    console.log('Found concentration matches:', concentrationMatches);
     
     // More flexible patterns for concentration data
     const totalTreesMatch = fullContent.match(/(?:Total Trees|Árboles totales|Total.*?árboles?).*?(\d+)\s*g\/m[3³]/i) || 
@@ -300,12 +300,12 @@ export async function runPollenScraping(): Promise<void> {
 
 // Enhanced function to run scraping and save to Supabase
 export async function scrapeAndSavePollenData(): Promise<PollenData | null> {
-  console.log('🚀 Ejecutando scraping y guardado de polenes...');
+  console.log('Ejecutando scraping y guardado de polenes...');
   
   // Test Supabase connection first
   const isConnected = await testConnection();
   if (!isConnected) {
-    console.log('⚠️ Continuando sin conexión a Supabase...');
+    console.log('Continuando sin conexión a Supabase...');
   }
   
   const pollenData = await scrapePollenData();
@@ -315,15 +315,15 @@ export async function scrapeAndSavePollenData(): Promise<PollenData | null> {
     
     // Save to Supabase if connection is available
     if (isConnected) {
-      console.log('💾 Guardando datos en Supabase...');
+      console.log('Guardando datos en Supabase...');
       const recordId = await saveSantiagoPollenData(pollenData);
       if (recordId) {
-        console.log(`✅ Datos guardados en Supabase con ID: ${recordId}`);
+        console.log(`Datos guardados en Supabase con ID: ${recordId}`);
       } else {
-        console.log('❌ Error al guardar en Supabase');
+        console.log('Error al guardar en Supabase');
       }
     } else {
-      console.log('⚠️ Datos no guardados - sin conexión a Supabase');
+      console.log('Datos no guardados - sin conexión a Supabase');
     }
   }
   

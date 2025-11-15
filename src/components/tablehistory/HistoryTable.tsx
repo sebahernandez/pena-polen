@@ -1,6 +1,6 @@
 import { Calendar, MapPin, TrendingDown, TrendingUp, Minus } from 'lucide-react';
 import type { HistoryRecord } from './types';
-import { getLevelColor } from './utils';
+import { getLevelColor, getWeekRange } from './utils';
 
 interface HistoryTableProps {
   records: HistoryRecord[];
@@ -74,7 +74,7 @@ export default function HistoryTable({
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900 dark:text-white font-medium">
-                      {record.date}
+                      {getWeekRange(record.date)}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">

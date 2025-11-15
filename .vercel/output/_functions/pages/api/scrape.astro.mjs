@@ -1,21 +1,27 @@
-import 'cheerio';
 import { S as SupabasePollenService } from '../../chunks/supabase_CSj5YIK4.mjs';
-import puppeteer from 'puppeteer';
 export { renderers } from '../../renderers.mjs';
 
+let puppeteer = null;
+if (process.env.VERCEL !== "1") {
+  puppeteer = require("puppeteer");
+}
 const getPollenLevel = (concentration) => {
   if (concentration >= 100) return "ALTOS";
   if (concentration >= 10) return "MEDIOS";
   return "BAJOS";
 };
-async function scrapeWithFetch() {
+async function scrapeWithFetch(retries = 2) {
   try {
     console.log("📡 Scraping con fetch en Vercel...");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15e3);
     const response = await fetch("https://www.polenes.cl/?pagina=niveles&ciudad=4", {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-      }
+      },
+      signal: controller.signal
     });
+    clearTimeout(timeout);
     if (!response.ok) {
       throw new Error(`Fetch error: ${response.status}`);
     }
@@ -47,14 +53,31 @@ async function scrapeWithFetch() {
     }
     return pollenData;
   } catch (error) {
-    console.error("❌ Error en scrapeWithFetch:", error);
+    if (error instanceof Error && error.name === "AbortError") {
+      console.error("❌ Timeout en fetch (15s superado)");
+    } else {
+      console.error("❌ Error en scrapeWithFetch:", error);
+    }
+    if (retries > 0) {
+      console.log(`⏳ Reintentando... (${retries} intentos restantes)`);
+      await new Promise((resolve) => setTimeout(resolve, 1e3));
+      return scrapeWithFetch(retries - 1);
+    }
     return null;
   }
 }
 async function scrapeWithPuppeteer() {
+  if (process.env.VERCEL === "1") {
+    console.error("❌ ERROR: Intentaste ejecutar Puppeteer en Vercel. Usar scrapeWithFetch en su lugar.");
+    return null;
+  }
   let browser;
   try {
-    console.log("📡 Scraping con Puppeteer...");
+    console.log("📡 Scraping con Puppeteer (Local Development)...");
+    if (!puppeteer) {
+      console.error("❌ Puppeteer no está disponible (esperado en Vercel)");
+      return null;
+    }
     browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"]
@@ -153,9 +176,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 }
 
 const POST = async () => {
+  const timeoutPromise = new Promise(
+    (_, reject) => setTimeout(() => reject(new Error("API timeout: 25 segundos")), 25e3)
+  );
   try {
     console.log("📡 API: Iniciando scraping de polen...");
-    const pollenData = await scrapeAndSavePollenData();
+    console.log(`Entorno: ${process.env.VERCEL === "1" ? "Vercel" : "Local"}`);
+    const pollenData = await Promise.race([
+      scrapeAndSavePollenData(),
+      timeoutPromise
+    ]);
     if (!pollenData) {
       return new Response(
         JSON.stringify({
@@ -188,16 +218,19 @@ const POST = async () => {
       }
     );
   } catch (error) {
-    console.error("❌ Error en API de scraping:", error);
+    const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+    const isTimeoutError = errorMessage.includes("timeout") || errorMessage.includes("AbortError");
+    console.error("❌ Error en API de scraping:", errorMessage);
     return new Response(
       JSON.stringify({
         success: false,
-        message: "Error al ejecutar el scraping",
-        error: error instanceof Error ? error.message : "Error desconocido",
-        data: null
+        message: isTimeoutError ? "Timeout al ejecutar el scraping" : "Error al ejecutar el scraping",
+        error: errorMessage,
+        data: null,
+        hint: isTimeoutError ? "El sitio tardó demasiado en responder. Intenta de nuevo más tarde." : void 0
       }),
       {
-        status: 500,
+        status: isTimeoutError ? 504 : 500,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"

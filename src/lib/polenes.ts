@@ -80,7 +80,8 @@ async function scrapeWithFetch(retries = 2): Promise<PollenData | null> {
         pollenData.levels.push({
           type: labels[i],
           level: getPollenLevel(numbers[i]),
-          concentration: numbers[i]
+          concentration: numbers[i],
+          description: `${numbers[i]} g/m³`
         });
       }
     }
@@ -165,7 +166,8 @@ async function scrapeWithPuppeteer(): Promise<PollenData | null> {
         pollenData.levels.push({
           type: labels[i],
           level: getPollenLevel(numbers[i]),
-          concentration: numbers[i]
+          concentration: numbers[i],
+          description: `${numbers[i]} g/m³`
         });
       }
     }

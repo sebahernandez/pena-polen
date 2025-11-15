@@ -106,12 +106,22 @@ La aplicación estará disponible en `http://localhost:4321`
 
 Toda la documentación técnica está centralizada en la carpeta [`docs/`](./docs/):
 
+- **[HYBRID_SCRAPING.md](./docs/HYBRID_SCRAPING.md)** ⭐ - Estrategia dual-mode de scraping
 - **[API_ENDPOINTS.md](./docs/API_ENDPOINTS.md)** - Endpoints disponibles
 - **[SCRAPING_MANUAL.md](./docs/SCRAPING_MANUAL.md)** - Cómo ejecutar scraping
 - **[CRON_SETUP.md](./docs/CRON_SETUP.md)** - Automatización de tareas
 - **[TESTING_GUIDE.md](./docs/TESTING_GUIDE.md)** - Guía de testing
 
 Accede a [docs/README.md](./docs/README.md) para ver el índice completo.
+
+### 🔀 Estrategia de Scraping Híbrida
+
+Este proyecto usa una estrategia **dual-mode** para scraping:
+
+- **Desarrollo Local** 💻: Usa Puppeteer para full JavaScript rendering
+- **Vercel Production** 🚀: Usa fetch (lightweight, sin binarios)
+
+Ver [docs/HYBRID_SCRAPING.md](./docs/HYBRID_SCRAPING.md) para detalles técnicos.
 
 ## ⚙️ Configuración
 

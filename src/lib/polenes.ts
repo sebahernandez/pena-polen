@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer-core';
+import * as chromium from 'chrome-aws-lambda';
 import * as cheerio from 'cheerio';
 import { SupabasePollenService } from './supabase';
 
@@ -20,10 +21,24 @@ export async function scrapePollenData(): Promise<PollenData | null> {
   let browser;
   
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    // Detectar si estamos en Vercel o localmente
+    const isVercel = process.env.VERCEL === '1';
+    
+    if (isVercel) {
+      // En Vercel, usar chrome-aws-lambda
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
+      });
+    } else {
+      // Localmente, usar puppeteer normal
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
+    }
     
     const page = await browser.newPage();
     

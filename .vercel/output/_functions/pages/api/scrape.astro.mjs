@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer-core';
+import * as chromium from 'chrome-aws-lambda';
 import * as cheerio from 'cheerio';
 import { S as SupabasePollenService } from '../../chunks/supabase_CSj5YIK4.mjs';
 export { renderers } from '../../renderers.mjs';
@@ -6,10 +7,20 @@ export { renderers } from '../../renderers.mjs';
 async function scrapePollenData() {
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    });
+    const isVercel = process.env.VERCEL === "1";
+    if (isVercel) {
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless
+      });
+    } else {
+      browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
+      });
+    }
     const page = await browser.newPage();
     await page.setExtraHTTPHeaders({
       "Accept-Charset": "utf-8"

@@ -1,24 +1,25 @@
-<!-- Navbar Container con padding para efecto flotante -->
-<div class="w-full px-4 sm:px-6 lg:px-8 py-4">
-  <nav class="max-w-7xl mx-auto bg-white/80 light:bg-white/90 dark:bg-gray-900 backdrop-blur-md rounded-2xl shadow-lg shadow-gray-200/50 dark:shadow-gray-900/50 border border-gray-200/50 light:border-gray-300/50 dark:border-gray-700/50 transition-all duration-200">
-    <div class="px-4 sm:px-6 lg:px-8">
-      <div class="relative flex h-16 items-center justify-between">
+<!-- Navbar Container - Fixed y Floating -->
+<div class="fixed top-0 left-0 right-0 z-50 px-2 sm:px-6 lg:px-8 py-2 sm:py-4 pointer-events-none">
+  <nav class="max-w-7xl mx-auto bg-white/75 light:bg-white/80 dark:bg-gray-900/70 backdrop-blur-xl rounded-2xl shadow-2xl shadow-gray-300/20 dark:shadow-gray-900/40 border border-white/30 light:border-gray-200/40 dark:border-gray-700/40 transition-all duration-200 pointer-events-auto">
+    <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent dark:from-indigo-500/5 dark:to-transparent pointer-events-none"></div>
+    <div class="px-2 sm:px-6 lg:px-8 relative z-10">
+      <div class="relative flex h-14 sm:h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
           <!-- Mobile menu button-->
           <button 
             type="button" 
             id="mobile-menu-button"
-            class="relative inline-flex items-center justify-center rounded-xl p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
+            class="relative inline-flex items-center justify-center rounded-lg p-1.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
             aria-controls="mobile-menu" 
             aria-expanded="false"
           >
             <span class="sr-only">Abrir menú principal</span>
             <!-- Hamburger icon -->
-            <svg id="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6">
+            <svg id="hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-5">
               <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <!-- Close icon -->
-            <svg id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-6 hidden">
+            <svg id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-5 hidden">
               <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
@@ -26,41 +27,50 @@
         
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex shrink-0 items-center">
-            <a href="/" class="flex items-center space-x-2 group">
-              <div class="bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-500 rounded-xl p-1.5 shadow-md group-hover:shadow-lg transition-all duration-200">
-                <svg class="size-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            <a href="/" class="flex items-center space-x-1 sm:space-x-2 group">
+              <div class="bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-500 rounded-lg sm:rounded-xl p-1 sm:p-1.5 shadow-md group-hover:shadow-lg transition-all duration-200">
+                <!-- Logo de Polen - Flores/Plantas con estilo moderno -->
+                <svg class="size-5 sm:size-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <!-- Pétalos principales del polen/flor -->
+                  <circle cx="12" cy="6" r="2.5" opacity="0.9"/>
+                  <circle cx="18" cy="10" r="2.5" opacity="0.85"/>
+                  <circle cx="18" cy="14" r="2.5" opacity="0.85"/>
+                  <circle cx="12" cy="18" r="2.5" opacity="0.9"/>
+                  <circle cx="6" cy="14" r="2.5" opacity="0.85"/>
+                  <circle cx="6" cy="10" r="2.5" opacity="0.85"/>
+                  <!-- Centro del polen -->
+                  <circle cx="12" cy="12" r="3.5" opacity="1"/>
                 </svg>
               </div>
-              <span class="text-gray-900 light:text-black dark:text-gray-100 text-xl font-bold tracking-tight">PeñaPolen</span>
+              <span class="text-gray-900 light:text-black dark:text-gray-100 font-bold tracking-tight text-xs sm:text-lg">Peña Polen</span>
             </a>
           </div>
           
           <div class="hidden sm:ml-8 sm:flex sm:items-center">
             <div class="flex space-x-1 bg-gray-100/50 light:bg-gray-200/50 dark:bg-gray-800/50 rounded-xl p-1">
-              <a href="/" aria-current="page" class="rounded-lg bg-white light:bg-white dark:bg-gray-700 px-4 py-2 text-sm font-semibold text-gray-900 light:text-black dark:text-white shadow-sm transition-all duration-200">Inicio</a>
-              <a href="/historial" class="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Historial</a>
-              <a href="/graficos" class="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Gráficos</a>
-              <a href="/contacto" class="rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Contacto</a>
+              <a href="#" data-section="hero" class="scroll-link rounded-lg bg-white light:bg-white dark:bg-gray-700 px-4 py-2 text-sm font-semibold text-gray-900 light:text-black dark:text-white transition-all duration-200">Inicio</a>
+              <a href="#" data-section="mapa" class="scroll-link rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Mapa</a>
+              <a href="#" data-section="historial" class="scroll-link rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Historial</a>
+              <a href="#" data-section="forecast" class="scroll-link rounded-lg px-4 py-2 text-sm font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-white/50 light:hover:bg-white/70 dark:hover:bg-gray-700/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Pronóstico</a>
             </div>
           </div>
         </div>
         
-        <div class="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <div class="absolute inset-y-0 right-0 flex items-center gap-1 sm:gap-2 pr-1 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <!-- Dark Mode Toggle -->
           <button 
             type="button" 
             id="theme-toggle"
-            class="relative rounded-xl p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
+            class="relative rounded-lg sm:rounded-xl p-1.5 sm:p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
             title="Cambiar tema"
           >
             <span class="sr-only">Alternar modo oscuro</span>
             <!-- Sun Icon (visible en dark mode) -->
-            <svg id="theme-toggle-light-icon" class="size-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+            <svg id="theme-toggle-light-icon" class="size-4 sm:size-5 hidden" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
             </svg>
             <!-- Moon Icon (visible en light mode) -->
-            <svg id="theme-toggle-dark-icon" class="size-5" fill="currentColor" viewBox="0 0 20 20">
+            <svg id="theme-toggle-dark-icon" class="size-4 sm:size-5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
             </svg>
           </button>
@@ -70,16 +80,15 @@
             <button 
               type="button" 
               id="notifications-button"
-              class="relative rounded-xl p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
+              class="relative rounded-lg sm:rounded-xl p-1.5 sm:p-2.5 text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/80 light:hover:bg-gray-200/80 dark:hover:bg-gray-800/80 hover:text-gray-900 light:hover:text-black dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition-all duration-200"
             >
               <span class="sr-only">Ver notificaciones</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-4 sm:size-5">
                 <path d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
               <!-- Badge para notificaciones no leídas -->
-              <span id="notification-badge" class="hidden absolute top-1.5 right-1.5 flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              <span id="notification-badge" class="absolute top-1 right-1 hidden">
+                <span class="animate-notification-pulse inline-flex h-3 w-3 rounded-full bg-indigo-500 opacity-75 shadow-lg"></span>
               </span>
             </button>
 
@@ -118,12 +127,13 @@
     </div>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200/50 dark:border-gray-700/50">
-      <div class="space-y-1 px-4 pt-3 pb-4">
-        <a href="/" aria-current="page" class="block rounded-xl bg-gray-100/80 light:bg-gray-200/80 dark:bg-gray-800/80 px-4 py-3 text-base font-semibold text-gray-900 light:text-black dark:text-white shadow-sm transition-all duration-200">Inicio</a>
-        <a href="/historial" class="block rounded-xl px-4 py-3 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 light:hover:bg-gray-200/50 dark:hover:bg-gray-800/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Historial</a>
-        <a href="/graficos" class="block rounded-xl px-4 py-3 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 light:hover:bg-gray-200/50 dark:hover:bg-gray-800/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Gráficos</a>
-        <a href="/contacto" class="block rounded-xl px-4 py-3 text-base font-medium text-gray-600 light:text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 light:hover:bg-gray-200/50 dark:hover:bg-gray-800/50 hover:text-gray-900 light:hover:text-black dark:hover:text-white transition-all duration-200">Contacto</a>
+    <div id="mobile-menu" class="hidden sm:hidden absolute top-full left-0 right-0 mt-2 mx-4 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl shadow-2xl shadow-gray-300/30 dark:shadow-gray-900/50 border border-white/40 dark:border-gray-700/50 overflow-hidden z-40 animate-in slide-in-from-top-2 duration-200">
+      <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent dark:from-indigo-400/10 dark:to-transparent pointer-events-none"></div>
+      <div class="relative z-10 space-y-1 px-4 py-3">
+        <a href="#" data-section="hero" class="scroll-link block rounded-lg px-4 py-3 text-base font-semibold text-gray-900 dark:text-white bg-indigo-50/50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-all duration-200">Inicio</a>
+        <a href="#" data-section="mapa" class="scroll-link block rounded-lg px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200">Mapa</a>
+        <a href="#" data-section="historial" class="scroll-link block rounded-lg px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200">Historial</a>
+        <a href="#" data-section="forecast" class="scroll-link block rounded-lg px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200">Pronóstico</a>
       </div>
     </div>
   </nav>
@@ -149,33 +159,50 @@ interface Notification {
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile menu toggle
   const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
   
-  if (!menuButton) return;
+  if (!menuButton || !mobileMenu) return;
   
-  menuButton.addEventListener('click', () => {
-    const mobileMenu = document.getElementById('mobile-menu');
+  // Función para cerrar menú
+  function closeMobileMenu() {
+    mobileMenu?.classList.add('hidden');
     const hamburgerIcon = document.getElementById('hamburger-icon');
     const closeIcon = document.getElementById('close-icon');
-    
-    if (!mobileMenu || !hamburgerIcon || !closeIcon) return;
-    
+    hamburgerIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+    menuButton?.setAttribute('aria-expanded', 'false');
+  }
+  
+  // Función para abrir menú
+  function openMobileMenu() {
+    mobileMenu?.classList.remove('hidden');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    hamburgerIcon?.classList.add('hidden');
+    closeIcon?.classList.remove('hidden');
+    menuButton?.setAttribute('aria-expanded', 'true');
+  }
+  
+  // Toggle menú con botón
+  menuButton.addEventListener('click', () => {
     const isMenuHidden = mobileMenu.classList.contains('hidden');
-    
-    // Configurar estado cuando el menú está oculto (mostrar menú)
-    if (isMenuHidden) {
-      mobileMenu.classList.remove('hidden');
-      hamburgerIcon.classList.add('hidden');
-      closeIcon.classList.remove('hidden');
-      menuButton.setAttribute('aria-expanded', 'true');
-      return;
-    }
-    
-    // Configurar estado cuando el menú está visible (ocultar menú)
-    mobileMenu.classList.add('hidden');
-    hamburgerIcon.classList.remove('hidden');
-    closeIcon.classList.add('hidden');
-    menuButton.setAttribute('aria-expanded', 'false');
+    isMenuHidden ? openMobileMenu() : closeMobileMenu();
   });
+
+  // Cerrar menú al hacer click fuera
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target instanceof Node) {
+      if (!mobileMenu.contains(target) && !menuButton.contains(target)) {
+        const isMenuHidden = mobileMenu.classList.contains('hidden');
+        if (!isMenuHidden) {
+          closeMobileMenu();
+        }
+      }
+    }
+  });
+
+  // Cerrar menú cuando se selecciona un enlace (ya manejado en scroll-link)
 
   // Dark mode toggle
   const themeToggleBtn = document.getElementById('theme-toggle');
@@ -429,5 +456,95 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Renderizar notificaciones iniciales
   renderNotifications();
+
+  // ==================== SCROLL TO SECTIONS ====================
+  const scrollLinksElements = document.querySelectorAll('.scroll-link');
+  
+  // Función para actualizar el enlace activo
+  function updateActiveLink() {
+    const scrollPosition = window.scrollY + 100; // Offset desde el top para detectar
+    const sections = ['hero', 'mapa', 'historial', 'forecast'];
+    
+    let activeSection = 'hero'; // Por defecto
+    
+    // Detectar qué sección está más cercana al viewport
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (!element) continue;
+      
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const elementBottom = elementTop + element.clientHeight;
+      
+      // Si la posición de scroll está dentro de esta sección
+      if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+        activeSection = section;
+        break;
+      }
+    }
+    
+    // Actualizar estilos de todos los enlaces
+    scrollLinksElements.forEach((link) => {
+      const linkSection = link.getAttribute('data-section');
+      const isActive = linkSection === activeSection;
+      
+      // Remover todas las clases relacionadas con estado
+      link.classList.remove('bg-white', 'light:bg-white', 'dark:bg-gray-700', 'bg-indigo-50/50', 'dark:bg-indigo-900/20');
+      link.classList.remove('font-semibold', 'font-medium');
+      
+      if (isActive) {
+        // Estilos para enlace activo
+        link.classList.add('bg-white', 'light:bg-white', 'dark:bg-gray-700', 'font-semibold');
+      } else {
+        // Estilos para enlace inactivo
+        link.classList.add('font-medium');
+      }
+    });
+  }
+  
+  // Eventos de scroll y click
+  scrollLinksElements.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const section = link.getAttribute('data-section');
+      
+      if (!section) return;
+      
+      // Cerrar menú móvil si está abierto
+      const mobileMenuElement = document.getElementById('mobile-menu');
+      if (mobileMenuElement && !mobileMenuElement.classList.contains('hidden')) {
+        mobileMenuElement.classList.add('hidden');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+        hamburgerIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+        const menuButtonElement = document.getElementById('mobile-menu-button');
+        menuButtonElement?.setAttribute('aria-expanded', 'false');
+      }
+      
+      // Scroll a la sección
+      const element = document.getElementById(section);
+      if (element) {
+        // Calcular offset para que no quede debajo del navbar
+        const navHeight = 90; // Altura aproximada del navbar fijo
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY - navHeight;
+        
+        window.scrollTo({
+          top: elementPosition,
+          behavior: 'smooth'
+        });
+        
+        // Actualizar el enlace activo después del scroll
+        setTimeout(() => {
+          updateActiveLink();
+        }, 100);
+      }
+    });
+  });
+
+  // Actualizar enlace activo al hacer scroll
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  
+  // Inicializar con el enlace correcto al cargar
+  updateActiveLink();
 });
 </script>

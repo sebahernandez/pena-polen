@@ -3,3 +3,45 @@
 /* Tailwind v4 custom variants */
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animaciones para el menú móvil */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: slideInFromTop 0.2s ease-out;
+}
+
+/* Asegurar que el navbar no se vea bajo el contenido */
+main {
+  scroll-margin-top: 100px;
+}
+
+/* Animación de parpadeante para el badge de notificaciones */
+@keyframes notification-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+
+.animate-notification-pulse {
+  animation: notification-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

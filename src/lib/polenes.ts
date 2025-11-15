@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import * as cheerio from 'cheerio';
-import { saveSantiagoPollenData, testConnection } from './supabase';
+import { SupabasePollenService } from './supabase';
 
 export interface PollenLevel {
   type: string;
@@ -303,9 +303,9 @@ export async function scrapeAndSavePollenData(): Promise<PollenData | null> {
   console.log('Ejecutando scraping y guardado de polenes...');
   
   // Test Supabase connection first
-  const isConnected = await testConnection();
+  const isConnected = await SupabasePollenService.testConnection();
   if (!isConnected) {
-    console.log('Continuando sin conexión a Supabase...');
+    console.log('⚠️ Continuando sin conexión a Supabase...');
   }
   
   const pollenData = await scrapePollenData();
@@ -315,15 +315,19 @@ export async function scrapeAndSavePollenData(): Promise<PollenData | null> {
     
     // Save to Supabase if connection is available
     if (isConnected) {
-      console.log('Guardando datos en Supabase...');
-      const recordId = await saveSantiagoPollenData(pollenData);
-      if (recordId) {
-        console.log(`Datos guardados en Supabase con ID: ${recordId}`);
-      } else {
-        console.log('Error al guardar en Supabase');
+      console.log('📤 Guardando datos en Supabase...');
+      try {
+        const recordId = await SupabasePollenService.savePollenData(pollenData);
+        if (recordId) {
+          console.log(`✅ Datos guardados en Supabase con ID: ${recordId}`);
+        } else {
+          console.log('❌ Error al guardar en Supabase');
+        }
+      } catch (error) {
+        console.error('❌ Error durante el guardado:', error);
       }
     } else {
-      console.log('Datos no guardados - sin conexión a Supabase');
+      console.log('⚠️ Datos no guardados - sin conexión a Supabase');
     }
   }
   

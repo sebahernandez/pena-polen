@@ -1,6 +1,12 @@
-import * as cheerio from 'cheerio';
 import { SupabasePollenService } from './supabase';
-import puppeteer from 'puppeteer';
+
+// ⚠️ IMPORTANTE: Puppeteer solo importado en entorno de desarrollo
+// Vercel lo excluye automáticamente porque usa process.env.VERCEL
+let puppeteer: any = null;
+if (process.env.VERCEL !== '1') {
+  // Solo importa en desarrollo local
+  puppeteer = require('puppeteer');
+}
 
 export interface PollenLevel {
   type: string;
@@ -25,16 +31,24 @@ const getPollenLevel = (concentration: number): string => {
 
 /**
  * Scraping usando fetch directo (para Vercel Serverless)
+ * Con reintentos y timeout mejorado
  */
-async function scrapeWithFetch(): Promise<PollenData | null> {
+async function scrapeWithFetch(retries = 2): Promise<PollenData | null> {
   try {
     console.log('📡 Scraping con fetch en Vercel...');
+    
+    // Timeout personalizado: 15 segundos (deja margen para Supabase)
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     
     const response = await fetch('https://www.polenes.cl/?pagina=niveles&ciudad=4', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-      }
+      },
+      signal: controller.signal
     });
+    
+    clearTimeout(timeout);
     
     if (!response.ok) {
       throw new Error(`Fetch error: ${response.status}`);
@@ -73,19 +87,44 @@ async function scrapeWithFetch(): Promise<PollenData | null> {
     
     return pollenData;
   } catch (error) {
-    console.error('❌ Error en scrapeWithFetch:', error);
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('❌ Timeout en fetch (15s superado)');
+    } else {
+      console.error('❌ Error en scrapeWithFetch:', error);
+    }
+    
+    // Reintentar una vez si falla
+    if (retries > 0) {
+      console.log(`⏳ Reintentando... (${retries} intentos restantes)`);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return scrapeWithFetch(retries - 1);
+    }
+    
     return null;
   }
 }
 
 /**
- * Scraping usando Puppeteer (para desarrollo local)
+ * Scraping usando Puppeteer (para desarrollo local SOLAMENTE)
+ * ⚠️ NUNCA se ejecuta en Vercel
  */
 async function scrapeWithPuppeteer(): Promise<PollenData | null> {
+  // Verificación extra: nunca intentes ejecutar en Vercel
+  if (process.env.VERCEL === '1') {
+    console.error('❌ ERROR: Intentaste ejecutar Puppeteer en Vercel. Usar scrapeWithFetch en su lugar.');
+    return null;
+  }
+  
   let browser;
   
   try {
-    console.log('📡 Scraping con Puppeteer...');
+    console.log('📡 Scraping con Puppeteer (Local Development)...');
+    
+    // Puppeteer solo disponible en desarrollo
+    if (!puppeteer) {
+      console.error('❌ Puppeteer no está disponible (esperado en Vercel)');
+      return null;
+    }
     
     browser = await puppeteer.launch({
       headless: true,

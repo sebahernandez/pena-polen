@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import type { HistoryRecord } from './types';
-import { getConcentrationValue } from './utils';
+import { getConcentrationValue, getWeekRange } from './utils';
 
 interface PollenChartProps {
   selectedRecord: HistoryRecord | null;
@@ -18,7 +18,7 @@ export default function PollenChart({ selectedRecord }: PollenChartProps) {
       const malezas = record.levels.find(l => l.type === 'malezas');
 
       return {
-        name: `Registro ${record.date}`,
+        name: getWeekRange(record.date),
         date: record.date,
         'Total Árboles': getConcentrationValue(totalArboles),
         'Plátano Oriental': getConcentrationValue(platanoOriental),
@@ -34,7 +34,7 @@ export default function PollenChart({ selectedRecord }: PollenChartProps) {
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Concentraciones de Polen (g/m³)
         <span className="ml-2 text-sm text-indigo-600 dark:text-indigo-400 font-normal">
-          - {selectedRecord.date}
+          - {getWeekRange(selectedRecord.date)}
         </span>
       </h3>
       <ResponsiveContainer width="100%" height={250}>

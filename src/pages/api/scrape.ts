@@ -6,19 +6,19 @@ import { scrapeAndSavePollenData } from '../../lib/polenes';
  * POST /api/scrape - Ejecuta el scraping y guarda en la base de datos
  * 
  * ⚠️ NOTA IMPORTANTE:
- * - En Vercel: Usa fetch mode (ligero, sin Puppeteer)
+ * - En Netlify: Usa fetch mode (ligero, sin Puppeteer)
  * - En local: Usa Puppeteer mode (full rendering)
- * - Timeout: 25 segundos (margen antes de los 30s de Vercel)
+ * - Timeout: 22 segundos (margen antes de los 26s de Netlify)
  */
 export const POST: APIRoute = async () => {
-  // Establecer timeout de 25 segundos para dejar margen (Vercel limit: 30s)
+  // Establecer timeout de 22 segundos para dejar margen (Netlify limit: 26s)
   const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('API timeout: 25 segundos')), 25000)
+    setTimeout(() => reject(new Error('API timeout: 22 segundos')), 22000)
   );
 
   try {
     console.log('📡 API: Iniciando scraping de polen...');
-    console.log(`Entorno: ${process.env.VERCEL === '1' ? 'Vercel' : 'Local'}`);
+    console.log(`Entorno: ${process.env.NETLIFY === 'true' ? 'Netlify' : 'Local'}`);
     
     // Race entre el scraping y el timeout
     const pollenData = await Promise.race([

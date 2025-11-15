@@ -1,9 +1,9 @@
 import { SupabasePollenService } from './supabase';
 
 // ⚠️ IMPORTANTE: Puppeteer solo importado en entorno de desarrollo
-// Vercel lo excluye automáticamente porque usa process.env.VERCEL
+// Netlify lo excluye automáticamente porque usa process.env.NETLIFY
 let puppeteer: any = null;
-if (process.env.VERCEL !== '1') {
+if (process.env.NETLIFY !== 'true') {
   // Solo importa en desarrollo local
   puppeteer = require('puppeteer');
 }
@@ -106,12 +106,12 @@ async function scrapeWithFetch(retries = 2): Promise<PollenData | null> {
 
 /**
  * Scraping usando Puppeteer (para desarrollo local SOLAMENTE)
- * ⚠️ NUNCA se ejecuta en Vercel
+ * ⚠️ NUNCA se ejecuta en Netlify
  */
 async function scrapeWithPuppeteer(): Promise<PollenData | null> {
-  // Verificación extra: nunca intentes ejecutar en Vercel
-  if (process.env.VERCEL === '1') {
-    console.error('❌ ERROR: Intentaste ejecutar Puppeteer en Vercel. Usar scrapeWithFetch en su lugar.');
+  // Verificación extra: nunca intentes ejecutar en Netlify
+  if (process.env.NETLIFY === 'true') {
+    console.error('❌ ERROR: Intentaste ejecutar Puppeteer en Netlify. Usar scrapeWithFetch en su lugar.');
     return null;
   }
   
@@ -185,9 +185,9 @@ async function scrapeWithPuppeteer(): Promise<PollenData | null> {
  * Función principal
  */
 export async function scrapePollenData(): Promise<PollenData | null> {
-  const isVercel = process.env.VERCEL === '1';
+  const isNetlify = process.env.NETLIFY === 'true';
   
-  if (isVercel) {
+  if (isNetlify) {
     return await scrapeWithFetch();
   } else {
     return await scrapeWithPuppeteer();

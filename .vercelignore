@@ -1,8 +1,0 @@
-# Ignorar node_modules local en Vercel
-# Vercel reinstalará sin el navegador de puppeteer
-.next
-.output
-dist
-*.log
-.env.local
-node_modules/.cache

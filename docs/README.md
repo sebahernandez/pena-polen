@@ -45,6 +45,14 @@ Guía completa para testing del proyecto.
 - End-to-end tests
 - Mejores prácticas
 
+### 🔀 [HYBRID_SCRAPING.md](./HYBRID_SCRAPING.md) **[NUEVO]**
+Explicación de la estrategia de scraping híbrida.
+- Dual-mode scraping (fetch vs Puppeteer)
+- Optimización para Vercel Serverless
+- Razones por las que Puppeteer no funciona en Vercel
+- Alternativas de scraping
+- Recomendaciones de producción
+
 ## 🏗️ Estructura del Proyecto
 
 ```

@@ -1,161 +1,208 @@
-# 🚀 Vercel Cron Deployment
+# 🚀 Ejecución de Scraping vía API
 
-Guía para configurar y desplegar el cron job de scraping automático en Vercel.
+Guía para ejecutar manualmente el scraping de datos de polen usando la ruta API.
 
 ## 📋 Resumen
 
-El proyecto ahora está configurado para ejecutar automáticamente el scraping de datos de polen cada 6 horas en Vercel usando Cron Jobs.
+En lugar de usar Vercel Cron (no disponible en tu plan), puedes usar la ruta API `/api/scrape` para ejecutar el scraping cuando lo necesites usando:
+- Postman
+- cURL
+- Tu propia tarea programada (en tu servidor)
+- Herramientas de automatización externas
 
-## 📁 Archivos Creados
+## 🔗 Ruta API Disponible
 
-### 1. `/src/pages/api/cron/scrape-pollen.ts`
-Endpoint específico para Vercel Cron que:
-- Se ejecuta automáticamente según el schedule
-- Realiza el scraping de datos
-- Guarda en Supabase
-- Registra logs detallados
-- Retorna respuesta JSON
+**Endpoint:** `POST /api/scrape`
 
-### 2. `/vercel.json`
-Configuración de Vercel con:
-- Path del cron endpoint
-- Schedule (cada 6 horas)
-- Puede modificarse según necesidad
-
-## 🔧 Configuración del Schedule
-
-El archivo `vercel.json` controla cuándo se ejecuta el scraping:
-
-```json
-{
-  "crons": [
-    {
-      "path": "/api/cron/scrape-pollen",
-      "schedule": "0 */6 * * *"
-    }
-  ]
-}
-```
-
-### Ejemplos de Schedules (Crontab Format)
-
-| Schedule | Descripción |
-|----------|------------|
-| `0 */6 * * *` | Cada 6 horas |
-| `0 */12 * * *` | Cada 12 horas |
-| `0 9 * * *` | Diariamente a las 9 AM UTC |
-| `0 0 * * *` | Diariamente a las 12 AM UTC (medianoche) |
-| `0 8,14,20 * * *` | A las 8 AM, 2 PM y 8 PM UTC |
-| `0 */3 * * *` | Cada 3 horas |
-| `0 0 * * 0` | Cada domingo a medianoche |
-| `0 9 * * 1-5` | Lunes a viernes a las 9 AM UTC |
-
-## 🚢 Deployment
-
-### Paso 1: Verificar los archivos
+### En Desarrollo
 
 ```bash
-# Verificar que los archivos existen
-ls -la src/pages/api/cron/scrape-pollen.ts
-cat vercel.json
-```
-
-### Paso 2: Commit y Push
-
-```bash
-git add .
-git commit -m "feat: Agregar Vercel Cron Job para scraping automático"
-git push origin main
-```
-
-### Paso 3: Deploy en Vercel
-
-1. Conectar el repositorio a Vercel (si no está conectado)
-2. Vercel detectará automáticamente el archivo `vercel.json`
-3. Deploy automáticamente
-
-### Paso 4: Verificar en Vercel Dashboard
-
-1. Ir a [vercel.com/dashboard](https://vercel.com/dashboard)
-2. Seleccionar el proyecto "pena-polen"
-3. Ir a "Settings" → "Crons"
-4. Verificar que aparece el cron job configurado
-
-## 📊 Monitoreo
-
-### Logs en Vercel
-
-Puedes ver los logs de ejecución del cron en:
-- Dashboard de Vercel → Proyecto → Functions → Logs
-- O ejecutar: `vercel logs`
-
-### Ejemplo de Log Exitoso
-
-```
-⏰ [CRON] Iniciando scraping automático de polen...
-⏰ [CRON] Hora: 2025-11-15T08:00:00.000Z
-Conexión con Supabase exitosa
-Scraping completo...
-✅ [CRON] Scraping completado exitosamente
-✅ [CRON] Registros de polen: 4
-```
-
-## 🔍 Troubleshooting
-
-### El cron no se ejecuta
-
-1. **Verificar que `vercel.json` está en la raíz** del proyecto
-2. **Verificar permisos** del archivo `scrape-pollen.ts`
-3. **Chequear logs** en Vercel Dashboard
-4. **Probar manualmente**: 
-   ```bash
-   curl -X POST https://tu-proyecto.vercel.app/api/cron/scrape-pollen
-   ```
-
-### Error de conexión a Supabase
-
-- Verificar que `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` están en Environment Variables de Vercel
-- Ir a Settings → Environment Variables en Vercel
-- Agregar las variables si faltan
-
-### Scraping no obtiene datos
-
-- Verificar que polenes.cl está accesible
-- Revisar la estructura HTML de polenes.cl (puede haber cambiado)
-- Ejecutar manualmente en desarrollo: `npm run scrape:save`
-
-## 📝 Alternativa: Ejecución Manual
-
-Si prefieres ejecutar el scraping manualmente sin automatización:
-
-```bash
-# Ejecutar scraping manualmente
-npm run scrape:save
-
-# O hacer request a la API
 curl -X POST http://localhost:4321/api/scrape
+```
 
-# O en producción
+### En Producción (Vercel)
+
+```bash
 curl -X POST https://tu-proyecto.vercel.app/api/scrape
 ```
 
-## 🔗 Rutas API Disponibles
+## 📊 Ejemplos de Uso
 
-| Ruta | Método | Descripción |
-|------|--------|------------|
-| `/api/scrape` | POST | Scraping manual (cualquier momento) |
-| `/api/cron/scrape-pollen` | POST | Scraping automático (Vercel solo) |
-| `/api/penaflor` | GET | Obtener datos actuales |
-| `/api/history` | GET | Obtener historial |
+### 1. Con cURL
 
-## 📚 Documentación Relacionada
+```bash
+# Ejecución simple
+curl -X POST https://tu-proyecto.vercel.app/api/scrape
 
-- [SCRAPING_MANUAL.md](./SCRAPING_MANUAL.md) - Manual completo de scraping
+# Con headers
+curl -X POST https://tu-proyecto.vercel.app/api/scrape \
+  -H "Content-Type: application/json"
+```
+
+### 2. Con Postman
+
+1. Abrir Postman
+2. Crear nueva request
+3. Método: **POST**
+4. URL: `https://tu-proyecto.vercel.app/api/scrape`
+5. Click en **Send**
+
+**Respuesta exitosa:**
+```json
+{
+  "success": true,
+  "message": "Scraping completado exitosamente",
+  "data": {
+    "city": "Santiago",
+    "date": "jueves, 6 de noviembre de 2025 al miércoles, 12 de noviembre de 2025",
+    "levels": [
+      { "type": "total de árboles", "level": "MEDIOS", "concentration": 80 },
+      { "type": "plátano oriental", "level": "MEDIOS", "concentration": 11 },
+      { "type": "pastos", "level": "MEDIOS", "concentration": 26 },
+      { "type": "malezas", "level": "BAJOS", "concentration": 9 }
+    ],
+    "forecast": "Comentarios: ... | Pronóstico: ... | Recomendaciones: ..."
+  },
+  "timestamp": "2025-11-15T02:00:00.000Z"
+}
+```
+
+### 3. Con JavaScript/Fetch
+
+```javascript
+// Fetch simple
+fetch('https://tu-proyecto.vercel.app/api/scrape', {
+  method: 'POST'
+})
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+// Con async/await
+async function executeScrap() {
+  try {
+    const response = await fetch('https://tu-proyecto.vercel.app/api/scrape', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const data = await response.json();
+    console.log('Scraping completado:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+```
+
+### 4. Con Python
+
+```python
+import requests
+
+url = 'https://tu-proyecto.vercel.app/api/scrape'
+response = requests.post(url)
+data = response.json()
+print(data)
+```
+
+## 🤖 Automatización Sin Vercel Cron
+
+### Opción 1: Cron en tu Servidor
+
+Si tienes un servidor propio:
+
+```bash
+# Editar crontab
+crontab -e
+
+# Agregar línea (ejecutar cada 6 horas)
+0 */6 * * * curl -X POST https://tu-proyecto.vercel.app/api/scrape
+```
+
+### Opción 2: GitHub Actions
+
+Crea `.github/workflows/scrape-pollen.yml`:
+
+```yaml
+name: Scraping de Polen
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ejecutar scraping
+        run: |
+          curl -X POST https://tu-proyecto.vercel.app/api/scrape
+```
+
+### Opción 3: Servicio Externo
+
+Usar servicios como:
+- **EasyCron** (easycron.com)
+- **IFTTT** (ifttt.com)
+- **Zapier** (zapier.com)
+- **Make/Integromat** (make.com)
+
+Todos permiten ejecutar webhooks POST periódicamente.
+
+## 📝 Alternativa Local
+
+### Ejecutar Manualmente en tu PC
+
+```bash
+npm run scrape:save
+```
+
+Este comando:
+1. Ejecuta el scraping
+2. Guarda en Supabase
+3. Genera notificación
+4. Muestra logs en consola
+
+## 🔍 Respuestas de API
+
+### ✅ Exitosa (200)
+
+```json
+{
+  "success": true,
+  "message": "Scraping completado exitosamente",
+  "data": { ... },
+  "timestamp": "2025-11-15T02:00:00.000Z"
+}
+```
+
+### ❌ Error (500)
+
+```json
+{
+  "success": false,
+  "message": "Error al ejecutar el scraping",
+  "error": "Error desconocido",
+  "data": null
+}
+```
+
+## 📋 Resumen de Opciones
+
+| Opción | Ventajas | Desventajas |
+|--------|----------|------------|
+| **Postman Manual** | Simple, sin setup | Manual |
+| **cURL Script** | Automatizable | Requiere servidor |
+| **GitHub Actions** | Gratuito, confiable | Config YAML |
+| **EasyCron** | Muy simple | Requiere cuenta |
+| **Servidor Propio** | Total control | Costo servidor |
+| **npm run scrape:save** | Directo, completo | Local only |
+
+## 🔗 Documentación Relacionada
+
+- [SCRAPING_MANUAL.md](./SCRAPING_MANUAL.md) - Manual de scraping completo
+- [API_ENDPOINTS.md](./API_ENDPOINTS.md) - Todos los endpoints disponibles
 - [CRON_SETUP.md](./CRON_SETUP.md) - Otras opciones de automatización
-- [API_ENDPOINTS.md](./API_ENDPOINTS.md) - Documentación de endpoints
 
 ---
 
 **Última actualización:** 15 de noviembre de 2025
 
-**Estado:** ✅ Configurado y listo para deploy en Vercel
+**Estado:** ✅ Usando ruta API manual (sin Vercel Cron)

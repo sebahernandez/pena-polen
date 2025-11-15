@@ -26,7 +26,12 @@ Manual para ejecutar el scraping de datos de polen desde polenes.cl.
 - Funciones disponibles
 - Sistema de notificaciones
 
-### ⏰ [CRON_SETUP.md](./CRON_SETUP.md)
+### 🚀 [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)
+Guía para ejecutar scraping manualmente vía API.
+- Ruta API /api/scrape
+- Ejemplos con cURL, Postman, JavaScript, Python
+- Alternativas de automatización
+- Integración con GitHub Actions, EasyCron, etc.
 Guía para configurar automatización de tareas mediante cron jobs.
 - Configuración de Vercel Cron Functions
 - GitHub Actions workflow
@@ -47,6 +52,7 @@ pena-polen/
 ├── docs/                          # 📁 Documentación (esta carpeta)
 │   ├── README.md                  # Índice de documentación
 │   ├── ARCHITECTURE.md            # Arquitectura del proyecto
+│   ├── VERCEL_DEPLOYMENT.md       # Ejecución vía API
 │   ├── API_ENDPOINTS.md           # Endpoints API
 │   ├── SCRAPING_MANUAL.md         # Manual de scraping
 │   ├── CRON_SETUP.md              # Configuración de automatización

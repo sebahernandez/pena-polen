@@ -53,6 +53,14 @@ Explicación de la estrategia de scraping híbrida.
 - Alternativas de scraping
 - Recomendaciones de producción
 
+### 🐛 [FUNCTION_INVOCATION_FAILED.md](./FUNCTION_INVOCATION_FAILED.md) **[NUEVO]**
+Análisis profundo del error y solución implementada.
+- Root cause: Bundle size exceeded Vercel limits
+- Solución: Lazy-load de Puppeteer con require()
+- Tree-shaking y dynamic imports explained
+- Lecciones aprendidas para el futuro
+- Alternativas consideradas
+
 ## 🏗️ Estructura del Proyecto
 
 ```

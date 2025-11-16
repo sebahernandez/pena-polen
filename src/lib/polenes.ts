@@ -1,13 +1,5 @@
 import { SupabasePollenService } from './supabase';
 
-// ⚠️ IMPORTANTE: Puppeteer solo importado en entorno de desarrollo
-// Netlify lo excluye automáticamente porque usa process.env.NETLIFY
-let puppeteer: any = null;
-if (process.env.NETLIFY !== 'true') {
-  // Solo importa en desarrollo local
-  puppeteer = require('puppeteer');
-}
-
 export interface PollenLevel {
   type: string;
   level: string;
@@ -30,12 +22,13 @@ const getPollenLevel = (concentration: number): string => {
 };
 
 /**
- * Scraping usando fetch directo (para Vercel Serverless)
- * Con reintentos y timeout mejorado
+ * Scraping usando fetch directo
+ * Funciona en todos los entornos (Netlify, Local, etc.)
+ * polenes.cl sirve datos en HTML estático (sin JavaScript)
  */
 async function scrapeWithFetch(retries = 2): Promise<PollenData | null> {
   try {
-    console.log('📡 Scraping con fetch en Vercel...');
+    console.log('📡 Scraping con fetch en Netlify...');
     
     // Timeout personalizado: 15 segundos (deja margen para Supabase)
     const controller = new AbortController();
@@ -106,94 +99,11 @@ async function scrapeWithFetch(retries = 2): Promise<PollenData | null> {
 }
 
 /**
- * Scraping usando Puppeteer (para desarrollo local SOLAMENTE)
- * ⚠️ NUNCA se ejecuta en Netlify
- */
-async function scrapeWithPuppeteer(): Promise<PollenData | null> {
-  // Verificación extra: nunca intentes ejecutar en Netlify
-  if (process.env.NETLIFY === 'true') {
-    console.error('❌ ERROR: Intentaste ejecutar Puppeteer en Netlify. Usar scrapeWithFetch en su lugar.');
-    return null;
-  }
-  
-  let browser;
-  
-  try {
-    console.log('📡 Scraping con Puppeteer (Local Development)...');
-    
-    // Puppeteer solo disponible en desarrollo
-    if (!puppeteer) {
-      console.error('❌ Puppeteer no está disponible (esperado en Vercel)');
-      return null;
-    }
-    
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    
-    const page = await browser.newPage();
-    
-    await page.goto('https://www.polenes.cl/?pagina=niveles&ciudad=4', {
-      waitUntil: 'networkidle2',
-      timeout: 30000
-    });
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const content = await page.content();
-    
-    const pollenData: PollenData = {
-      city: 'Santiago',
-      date: new Date().toLocaleDateString('es-CL'),
-      levels: [],
-      forecast: ''
-    };
-    
-    // Extraer números
-    const matches = content.match(/(\d+)\s*g\/m[3³]/gi);
-    if (matches && matches.length > 0) {
-      const numbers: number[] = [];
-      for (const match of matches) {
-        const numMatch = match.match(/\d+/);
-        if (numMatch) {
-          numbers.push(parseInt(numMatch[0]));
-        }
-      }
-      
-      const labels = ['total de árboles', 'plátano oriental', 'pastos', 'malezas'];
-      for (let i = 0; i < Math.min(numbers.length, labels.length); i++) {
-        pollenData.levels.push({
-          type: labels[i],
-          level: getPollenLevel(numbers[i]),
-          concentration: numbers[i],
-          description: `${numbers[i]} g/m³`
-        });
-      }
-    }
-    
-    return pollenData;
-  } catch (error) {
-    console.error('❌ Error en scrapeWithPuppeteer:', error);
-    return null;
-  } finally {
-    if (browser) {
-      await browser.close();
-    }
-  }
-}
-
-/**
  * Función principal
+ * Usa fetch en todos los entornos (polenes.cl sirve HTML estático)
  */
 export async function scrapePollenData(): Promise<PollenData | null> {
-  const isNetlify = process.env.NETLIFY === 'true';
-  
-  if (isNetlify) {
-    return await scrapeWithFetch();
-  } else {
-    return await scrapeWithPuppeteer();
-  }
+  return await scrapeWithFetch();
 }
 
 export function displayPollenData(data: PollenData | null): void {

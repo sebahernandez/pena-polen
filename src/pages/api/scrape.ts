@@ -5,10 +5,9 @@ import { scrapeAndSavePollenData } from '../../lib/polenes';
  * API endpoint para ejecutar el scraping de datos de polen
  * POST /api/scrape - Ejecuta el scraping y guarda en la base de datos
  * 
- * ⚠️ NOTA IMPORTANTE:
- * - En Netlify: Usa fetch mode (ligero, sin Puppeteer)
- * - En local: Usa Puppeteer mode (full rendering)
- * - Timeout: 22 segundos (margen antes de los 26s de Netlify)
+ * ✅ Nota: Usa fetch mode en todos los entornos (Netlify, Local)
+ * polenes.cl sirve datos en HTML estático (sin JavaScript)
+ * Timeout: 22 segundos (margen antes de los 26s de Netlify)
  */
 export const POST: APIRoute = async () => {
   // Establecer timeout de 22 segundos para dejar margen (Netlify limit: 26s)
@@ -17,8 +16,7 @@ export const POST: APIRoute = async () => {
   );
 
   try {
-    console.log('📡 API: Iniciando scraping de polen...');
-    console.log(`Entorno: ${process.env.NETLIFY === 'true' ? 'Netlify' : 'Local'}`);
+    console.log('📡 API: Iniciando scraping de polen con fetch...');
     
     // Race entre el scraping y el timeout
     const pollenData = await Promise.race([

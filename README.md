@@ -2,156 +2,73 @@
 
 Sistema inteligente de información sobre niveles de polen en Peñaflor. Consulta datos históricos y pronósticos para cuidar tu salud respiratoria.
 
-## 📋 Contenido
+---
 
-- [Características](#características)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Instalación](#instalación)
-- [Comandos](#comandos)
-- [Documentación](#documentación)
-- [Configuración](#configuración)
+## 🎯 ¿Para qué sirve?
 
-## ✨ Características
+**Peña Polen** es una plataforma web que monitorea y visualiza los niveles de concentración de polen en Peñaflor, extrayendo información en tiempo real desde [polenes.cl](https://www.polenes.cl).
 
-✅ **Scraping Automático** - Extrae datos de [polenes.cl](https://www.polenes.cl)
-✅ **Base de Datos** - Almacenamiento en Supabase
-✅ **Notificaciones** - Alertas en tiempo real de nuevos datos
-✅ **Mapa Interactivo** - Visualiza zonas de monitoreo
-✅ **Historial** - Consulta datos históricos
-✅ **Pronóstico** - Predicciones de niveles de polen
-✅ **Interfaz Moderna** - Diseño responsive con glass-morphism
-✅ **Modo Oscuro** - Tema light/dark automático
+El proyecto está diseñado para:
+- 📊 **Monitorear** niveles de diferentes tipos de polen (árboles, pastos, malezas)
+- 📈 **Visualizar** datos históricos y tendencias
+- 🗺️ **Localizar** información de forma interactiva
+- ⚠️ **Alertar** sobre cambios en los niveles de polen
+- 🏥 **Cuidar la salud** respiratoria de los usuarios
 
-## 🏗️ Estructura del Proyecto
+---
 
-```
-pena-polen/
-├── docs/                          # 📚 Documentación completa
-│   ├── README.md                  # Índice de documentación
-│   ├── API_ENDPOINTS.md           # API REST endpoints
-│   ├── SCRAPING_MANUAL.md         # Manual de scraping
-│   ├── CRON_SETUP.md              # Automatización
-│   └── TESTING_GUIDE.md           # Guía de testing
-├── src/
-│   ├── components/                # Componentes Astro/React
-│   │   ├── Header.astro           # Navbar con navegación
-│   │   ├── Footer.astro           # Footer
-│   │   ├── map/                   # Componente mapa
-│   │   └── tablehistory/          # Tabla de historial
-│   ├── lib/
-│   │   ├── polenes.ts            # Scraping de datos
-│   │   └── supabase.ts           # Cliente Supabase
-│   ├── pages/
-│   │   ├── index.astro           # Página principal
-│   │   ├── historial.astro       # Página historial
-│   │   └── api/                  # Endpoints API
-│   ├── types/
-│   │   └── supabase.ts           # Tipos TypeScript
-│   └── styles/
-│       └── global.css            # Estilos globales
-├── public/                        # Archivos estáticos
-├── supabase-schema.sql           # Schema de BD
-├── package.json
-├── tsconfig.json
-├── astro.config.mjs
-├── tailwind.config.mjs
-└── .env / .env.local             # Variables de entorno
-```
+## ✨ Beneficios
 
-## 🚀 Instalación
+### 👥 Para los Usuarios
+- ✅ **Información actualizada** - Datos en tiempo real de concentración de polen
+- ✅ **Interfaz intuitiva** - Diseño moderno y fácil de usar
+- ✅ **Acceso histórico** - Consulta tendencias y patrones pasados
+- ✅ **Pronósticos** - Predicciones de niveles futuros
+- ✅ **Disponible 24/7** - Plataforma web accesible desde cualquier dispositivo
+- ✅ **Tema oscuro** - Modo de visualización comfortable
 
-### Requisitos
-- Node.js 18+
-- npm o pnpm
-- Cuenta Supabase (opcional pero recomendado)
+### 🏗️ Para Desarrolladores
+- ✅ **Scraping automatizado** - Extrae datos de forma eficiente
+- ✅ **API REST** - Endpoints listos para integración
+- ✅ **Base de datos robusta** - Supabase para escalabilidad
+- ✅ **Código bien estructurado** - TypeScript y componentes reutilizables
+- ✅ **Documentación completa** - Guías técnicas detalladas
+- ✅ **Deployment listo** - Integración con Netlify
 
-### Pasos
+---
 
-1. **Clonar el repositorio**
-```bash
-git clone <repo-url>
-cd pena-polen
-```
+## 🛠️ Tecnologías Utilizadas
 
-2. **Instalar dependencias**
-```bash
-npm install
-```
+### Frontend
+- **[Astro](https://astro.build)** - Framework ultrarrápido para sitios estáticos
+- **[React](https://react.dev)** - Componentes interactivos (mapas, tablas)
+- **[TypeScript](https://www.typescriptlang.org)** - Type-safe development
+- **[Tailwind CSS](https://tailwindcss.com)** - Utilidades CSS para diseño responsivo
+- **[Glass-morphism](https://glassmorphism.com)** - Diseño moderno y elegante
 
-3. **Configurar variables de entorno**
-```bash
-cp .env.example .env.local
-# Editar .env.local con tus credenciales de Supabase
-```
+### Backend & Base de Datos
+- **[Node.js](https://nodejs.org)** - Runtime JavaScript
+- **[Supabase](https://supabase.com)** - PostgreSQL + Auth + Real-time
+- **[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)** - Scraping de datos HTML
+- **[Puppeteer](https://pptr.dev)** - Rendering con JavaScript (desarrollo local)
 
-4. **Iniciar desarrollo**
-```bash
-npm run dev
-```
+### Herramientas & DevOps
+- **[Netlify](https://www.netlify.com)** - Hosting y deployment
+- **[Git](https://git-scm.com)** - Control de versiones
+- **[npm](https://www.npmjs.com)** - Gestor de paquetes
 
-La aplicación estará disponible en `http://localhost:4321`
+### Técnicas Implementadas
+- 🔄 **Web Scraping** - Extrae datos dinámicamente
+- 🔐 **Type Safety** - TypeScript para código robusto
+- ⚡ **Optimización** - Performance-first arquitectura
+- 🔄 **API REST** - Endpoints para integración
+- 📦 **Componentes Modulares** - Reutilización de código
 
-## 📝 Comandos
-
-| Comando | Descripción |
-|---------|------------|
-| `npm run dev` | Inicia servidor de desarrollo |
-| `npm run build` | Build para producción |
-| `npm run preview` | Preview del build |
-| `npm run scrape` | Ejecuta scraping sin guardar |
-| `npm run scrape:save` | Ejecuta scraping y guarda en Supabase |
-| `npm run test` | Ejecuta tests |
+---
 
 ## 📚 Documentación
 
-Toda la documentación técnica está centralizada en la carpeta [`docs/`](./docs/):
-
-- **[HYBRID_SCRAPING.md](./docs/HYBRID_SCRAPING.md)** ⭐ - Estrategia dual-mode de scraping
-- **[API_ENDPOINTS.md](./docs/API_ENDPOINTS.md)** - Endpoints disponibles
-- **[SCRAPING_MANUAL.md](./docs/SCRAPING_MANUAL.md)** - Cómo ejecutar scraping
-- **[CRON_SETUP.md](./docs/CRON_SETUP.md)** - Automatización de tareas
-- **[TESTING_GUIDE.md](./docs/TESTING_GUIDE.md)** - Guía de testing
-
-Accede a [docs/README.md](./docs/README.md) para ver el índice completo.
-
-### 🔀 Estrategia de Scraping Híbrida
-
-Este proyecto usa una estrategia **dual-mode** para scraping:
-
-- **Desarrollo Local** 💻: Usa Puppeteer para full JavaScript rendering
-- **Vercel Production** 🚀: Usa fetch (lightweight, sin binarios)
-
-Ver [docs/HYBRID_SCRAPING.md](./docs/HYBRID_SCRAPING.md) para detalles técnicos.
-
-## ⚙️ Configuración
-
-### Variables de Entorno
-
-```env
-# Supabase
-PUBLIC_SUPABASE_URL=https://your-supabase-url.supabase.co
-PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
-
-### Base de Datos
-
-Para configurar la base de datos, ejecuta el script SQL:
-```bash
-psql -U postgres -d your_db -f supabase-schema.sql
-```
-
-O importa el contenido en Supabase SQL Editor.
-
-## 🔗 Enlaces Útiles
-
-- [Polenes.cl](https://www.polenes.cl) - Fuente de datos
-- [Astro Docs](https://docs.astro.build)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Supabase Docs](https://supabase.com/docs)
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT.
+Para guías técnicas, instalación y configuración, consulta la carpeta [`docs/`](./docs/).
 
 ---
 
